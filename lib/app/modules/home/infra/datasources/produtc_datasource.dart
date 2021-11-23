@@ -1,5 +1,5 @@
-import 'package:crud_products/app/modules/home/domain/entities/product_entity.dart';
+import 'package:crud_products/app/modules/home/infra/models/product_model.dart';
 
 abstract class ProductDatasourceInterface {
-  Future<List<ProductEntity>> fetchProducts();
+  Future<List<ProductModel>> fetchProducts();
 }
