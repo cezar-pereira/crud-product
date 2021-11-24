@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:crud_products/app/modules/home/domain/entities/product_entity.dart';
 import 'package:crud_products/app/modules/home/domain/errors/errors_product.dart';
 import 'package:crud_products/app/modules/home/domain/usecases/fetch_products_usecase.dart';
+import 'package:crud_products/app/shared/functions/remove_diacritics.dart';
 
 abstract class FetchProductsState {}
 
@@ -41,7 +42,8 @@ class FetchProductsBloc extends Cubit<FetchProductsState> {
     } else {
       var filter = products
           .where((element) =>
-              element.name.toLowerCase().contains(value.toLowerCase()))
+              removeDiacritics(value: element.name.toLowerCase())
+                  .contains(removeDiacritics(value: value.toLowerCase())))
           .toList();
       emit(FetchProductsStateSuccess(data: filter));
     }
