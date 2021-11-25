@@ -1,4 +1,4 @@
-import 'package:crud_products/app/modules/add_edit_product/infra/datasource/produtc_datasource.dart';
+import 'package:crud_products/app/modules/product/infra/datasource/produtc_datasource.dart';
 import 'package:crud_products/app/modules/home/infra/models/hive/product_model_hive.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -10,29 +10,29 @@ class ProductHiveDataSourceMock extends Mock
 
 void main() {
   late final ProductDatasourceInterface dataSource;
-  late final ProductModelHive productModel;
+  late final ProductModelHive product;
   setUpAll(() {
-    productModel = ProductModelHive.fromMap(map: dataFake[0]);
+    product = ProductModelHive.fromMap(map: dataFake[0]);
     dataSource = ProductHiveDataSourceMock();
   });
 
   test('Should return TRUE when call saveProduct', () async {
-    when(() => dataSource.saveProduct(productModel: productModel))
+    when(() => dataSource.saveProduct(product: product))
         .thenAnswer((invocation) async => true);
-    var result = await dataSource.saveProduct(productModel: productModel);
+    var result = await dataSource.saveProduct(product: product);
     expect(result, true);
   });
 
   test('Should return TRUE when call updateProduct', () async {
-    when(() => dataSource.updateProduct(productModel: productModel))
+    when(() => dataSource.updateProduct(product: product))
         .thenAnswer((invocation) async => true);
-    var result = await dataSource.updateProduct(productModel: productModel);
+    var result = await dataSource.updateProduct(product: product);
     expect(result, true);
   });
   test('Should return TRUE when call removeProduct', () async {
-    when(() => dataSource.removeProduct(productModel: productModel))
+    when(() => dataSource.removeProduct(product: product))
         .thenAnswer((invocation) async => true);
-    var result = await dataSource.removeProduct(productModel: productModel);
+    var result = await dataSource.removeProduct(product: product);
     expect(result, true);
   });
 }

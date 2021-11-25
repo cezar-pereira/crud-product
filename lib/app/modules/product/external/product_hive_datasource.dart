@@ -1,16 +1,16 @@
-import 'package:crud_products/app/modules/add_edit_product/infra/datasource/produtc_datasource.dart';
+import 'package:crud_products/app/modules/home/domain/entities/product_entity.dart';
+import 'package:crud_products/app/modules/product/infra/datasource/produtc_datasource.dart';
 import 'package:crud_products/app/modules/home/infra/models/hive/product_model_hive.dart';
-import 'package:crud_products/app/modules/home/infra/models/product_model.dart';
 import 'dart:developer' as developer;
 
 import 'package:hive/hive.dart';
 
 class ProductHiveDataSource implements ProductDatasourceInterface {
   @override
-  Future<bool> removeProduct({required ProductModel productModel}) async {
+  Future<bool> removeProduct({required ProductEntity product}) async {
     try {
-      productModel as ProductModelHive;
-      await productModel.delete();
+      product as ProductModelHive;
+      await product.delete();
       return true;
     } catch (e, stackTrace) {
       developer.log('ERROR: $e', name: 'RemoveProduct', stackTrace: stackTrace);
@@ -19,11 +19,11 @@ class ProductHiveDataSource implements ProductDatasourceInterface {
   }
 
   @override
-  Future<bool> saveProduct({required ProductModel productModel}) async {
+  Future<bool> saveProduct({required ProductEntity product}) async {
     try {
-      productModel as ProductModelHive;
+      product as ProductModelHive;
       var box = await Hive.openBox<ProductModelHive>('products');
-      await box.add(productModel);
+      await box.add(product);
       return true;
     } catch (e, stackTrace) {
       developer.log('ERROR: $e', name: 'SaveProduct', stackTrace: stackTrace);
@@ -32,10 +32,10 @@ class ProductHiveDataSource implements ProductDatasourceInterface {
   }
 
   @override
-  Future<bool> updateProduct({required ProductModel productModel}) async {
+  Future<bool> updateProduct({required ProductEntity product}) async {
     try {
-      productModel as ProductModelHive;
-      await productModel.save();
+      product as ProductModelHive;
+      await product.save();
       return true;
     } catch (e, stackTrace) {
       developer.log('ERROR: $e', name: 'UpdateProduct', stackTrace: stackTrace);

@@ -1,5 +1,5 @@
-import 'package:crud_products/app/modules/add_edit_product/domain/errors/errors_product.dart';
-import 'package:crud_products/app/modules/add_edit_product/domain/repositories/product_repository.dart';
+import 'package:crud_products/app/modules/product/domain/errors/errors_product.dart';
+import 'package:crud_products/app/modules/product/domain/repositories/product_repository.dart';
 import 'package:crud_products/app/modules/home/infra/models/hive/product_model_hive.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -12,55 +12,55 @@ class ProductRepositoryMock extends Mock implements ProductRepositoryInterface {
 
 void main() {
   late final ProductRepositoryInterface repository;
-  late final ProductModelHive productModel;
+  late final ProductModelHive product;
 
   setUpAll(() {
-    productModel = ProductModelHive.fromMap(map: dataFake[0]);
+    product = ProductModelHive.fromMap(map: dataFake[0]);
     repository = ProductRepositoryMock();
   });
 
   group('saveProduct:', () {
     test('Should return TRUE', () async {
-      when(() => repository.saveProduct(productModel: productModel))
+      when(() => repository.saveProduct(product: product))
           .thenAnswer((_) async => const Right(true));
-      var result = await repository.saveProduct(productModel: productModel);
+      var result = await repository.saveProduct(product: product);
       expect(result, const Right(true));
     });
     test('Should return ErrorSaveProduct', () async {
       var error = ErrorSaveProduct(message: 'error');
-      when(() => repository.saveProduct(productModel: productModel))
+      when(() => repository.saveProduct(product: product))
           .thenAnswer((_) async => Left(error));
-      var result = await repository.saveProduct(productModel: productModel);
+      var result = await repository.saveProduct(product: product);
       expect(result, Left(error));
     });
   });
   group('updateProduct:', () {
     test('Should return TRUE', () async {
-      when(() => repository.updateProduct(productModel: productModel))
+      when(() => repository.updateProduct(product: product))
           .thenAnswer((_) async => const Right(true));
-      var result = await repository.updateProduct(productModel: productModel);
+      var result = await repository.updateProduct(product: product);
       expect(result, const Right(true));
     });
     test('Should return ErrorUpdateProduct', () async {
       var error = ErrorUpdateProduct(message: 'error');
-      when(() => repository.updateProduct(productModel: productModel))
+      when(() => repository.updateProduct(product: product))
           .thenAnswer((_) async => Left(error));
-      var result = await repository.updateProduct(productModel: productModel);
+      var result = await repository.updateProduct(product: product);
       expect(result, Left(error));
     });
   });
   group('removeProduct:', () {
     test('Should return TRUE', () async {
-      when(() => repository.removeProduct(productModel: productModel))
+      when(() => repository.removeProduct(product: product))
           .thenAnswer((_) async => const Right(true));
-      var result = await repository.removeProduct(productModel: productModel);
+      var result = await repository.removeProduct(product: product);
       expect(result, const Right(true));
     });
     test('Should return ErrorRemoveProduct', () async {
       var error = ErrorRemoveProduct(message: 'error');
-      when(() => repository.removeProduct(productModel: productModel))
+      when(() => repository.removeProduct(product: product))
           .thenAnswer((_) async => Left(error));
-      var result = await repository.removeProduct(productModel: productModel);
+      var result = await repository.removeProduct(product: product);
       expect(result, Left(error));
     });
   });
