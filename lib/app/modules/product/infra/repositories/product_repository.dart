@@ -3,7 +3,6 @@ import 'package:crud_products/app/modules/product/domain/errors/errors_product.d
 import 'package:crud_products/app/modules/product/domain/repositories/product_repository.dart';
 import 'package:crud_products/app/modules/product/infra/datasource/produtc_datasource.dart';
 import 'package:dartz/dartz.dart';
-import 'package:crud_products/app/modules/home/infra/models/product_model.dart';
 
 class ProductRepository implements ProductRepositoryInterface {
   final ProductDatasourceInterface dataSource;

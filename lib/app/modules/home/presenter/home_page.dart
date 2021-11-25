@@ -1,4 +1,10 @@
+import 'package:crud_products/app/modules/home/domain/entities/product_entity.dart';
 import 'package:crud_products/app/modules/home/presenter/components/text_field_search_component.dart';
+import 'package:crud_products/app/modules/product/presenter/blocs/product_bloc.dart';
+import 'package:crud_products/app/shared/components/build_show_dialog.dart';
+import 'package:crud_products/app/shared/components/dialog_confirm_component.dart';
+import 'package:crud_products/app/shared/components/snackbar_error_custom_component.dart';
+import 'package:crud_products/app/shared/components/snackbar_success_custom_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -65,7 +71,9 @@ class _HomePageState extends ModularState<HomePage, FetchProductsBloc> {
                       motion: const ScrollMotion(),
                       children: [
                         SlidableAction(
-                          onPressed: (_) {},
+                          onPressed: (_) async {
+                            _removeProduct(product: state.data[index]);
+                          },
                           backgroundColor: Colors.transparent,
                           foregroundColor: Colors.red,
                           icon: Icons.delete,
@@ -95,5 +103,34 @@ class _HomePageState extends ModularState<HomePage, FetchProductsBloc> {
         },
       ),
     );
+  }
+
+  _removeProduct({required ProductEntity product}) async {
+    var response = await _dialogConfirmRemoveProduct(product: product);
+    if (response) {
+      var result = await Modular.get<ProductBloc>()
+          .removeProductUsecase
+          .call(product: product);
+      result.fold((error) {
+        SnackBarErrorCustom(context: context, error: error.message).call();
+      }, (_) {
+        SnackBarSuccessCustom(
+                context: context, success: 'Produto excluído com sucesso.')
+            .call();
+        store.fetchProducts();
+      });
+    }
+  }
+
+  Future<bool> _dialogConfirmRemoveProduct(
+      {required ProductEntity product}) async {
+    var result = await BuildShowDialog(
+      context: context,
+      widget: DialogConfirmComponent(
+        title: 'Confirmar exclusão',
+        content: 'Deseja excluir o produto ${product.name}?',
+      ),
+    ).call();
+    return result;
   }
 }

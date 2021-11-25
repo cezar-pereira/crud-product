@@ -1,3 +1,5 @@
+import 'package:crud_products/app/modules/product/presenter/product_module.dart';
+
 import 'package:crud_products/app/modules/home/domain/repositories/product_reposity.dart';
 import 'package:crud_products/app/modules/home/domain/usecases/fetch_products_usecase.dart';
 import 'package:crud_products/app/modules/home/external/datasources/product_hive_datasource.dart';
@@ -9,6 +11,10 @@ import 'blocs/fetch_products_bloc.dart';
 import 'home_page.dart';
 
 class HomeModule extends Module {
+  @override
+  List<Module> get imports => [
+        ProductModule(),
+      ];
   @override
   final List<Bind> binds = [
     /*** BLOCS ***/
