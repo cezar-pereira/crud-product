@@ -25,7 +25,9 @@ class CardProductComponent extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(border),
                         topLeft: Radius.circular(border)),
-                    child: Image.network(product.image),
+                    child: Hero(
+                        tag: product.image,
+                        child: Image.network(product.image)),
                   ),
           ),
           Expanded(

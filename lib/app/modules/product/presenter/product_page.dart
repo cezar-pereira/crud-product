@@ -61,6 +61,11 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  if (widget.product != null &&
+                      widget.product!.image.isNotEmpty)
+                    Hero(
+                        tag: widget.product!.image,
+                        child: Image.network(widget.product!.image)),
                   TextFormFieldComponent(
                       hint: 'Nome',
                       validation: _validation.name,
