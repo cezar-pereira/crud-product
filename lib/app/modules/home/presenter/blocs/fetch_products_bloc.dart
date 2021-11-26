@@ -31,7 +31,8 @@ class FetchProductsBloc extends Cubit<FetchProductsState> {
     var result = await useCase.call();
     result.fold((l) => emit(FetchProductsStateError(error: l)), (r) {
       products = r;
-      products.sort((a, b) => a.name.compareTo(b.name));
+      products
+          .sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
       emit(FetchProductsStateSuccess(data: products));
     });
   }
