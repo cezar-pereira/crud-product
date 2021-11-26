@@ -6,6 +6,7 @@ import 'package:crud_products/app/shared/components/buttons_components.dart';
 import 'package:crud_products/app/shared/components/dialog_confirm_component.dart';
 import 'package:crud_products/app/shared/components/snackbar_error_custom_component.dart';
 import 'package:crud_products/app/shared/components/snackbar_success_custom_component.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -57,6 +58,7 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
           child: Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFormFieldComponent(
                       hint: 'Nome',
@@ -117,6 +119,38 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
                     ],
                   ),
                   const SizedBox(height: 20),
+                  const Text('Tamanhos:'),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    height: 60,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            setState(() {
+                              store.sizes[index].available =
+                                  !store.sizes[index].available;
+                            });
+                          },
+                          child: Container(
+                            width: 70,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: store.sizes[index].available
+                                    ? Colors.green
+                                    : Colors.black12),
+                            child: Text(store.sizes[index].size),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: 8),
+                      itemCount: store.sizes.length,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -164,7 +198,8 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
                           }
                         },
                         context: context,
-                        label: const Text('Adicionar'),
+                        label: Text(
+                            widget.product == null ? 'Adicionar' : 'Atualizar'),
                       ),
                     ],
                   ),

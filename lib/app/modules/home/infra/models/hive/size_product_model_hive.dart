@@ -21,4 +21,9 @@ class SizeProductModelHive extends SizeProductModel {
     return SizeProductModelHive(
         available: map['available'], size: map['size'], sku: map['sku']);
   }
+
+  SizeProductModelHive copyWith({bool? available}) {
+    return SizeProductModelHive(
+        available: available ?? this.available, size: size, sku: sku);
+  }
 }
