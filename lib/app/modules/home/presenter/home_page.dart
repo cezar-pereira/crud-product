@@ -1,4 +1,6 @@
+import 'package:crud_products/app/modules/home/db_fake.dart';
 import 'package:crud_products/app/modules/home/domain/entities/product_entity.dart';
+import 'package:crud_products/app/modules/home/infra/models/hive/product_model_hive.dart';
 import 'package:crud_products/app/modules/home/presenter/components/text_field_search_component.dart';
 import 'package:crud_products/app/modules/product/presenter/blocs/product_controller.dart';
 import 'package:crud_products/app/shared/components/build_show_dialog.dart';
@@ -38,6 +40,16 @@ class _HomePageState extends ModularState<HomePage, FetchProductsBloc> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+        actions: [
+          TextButton(
+              onPressed: () {
+                initialCharge();
+              },
+              child: const Text(
+                'Carga Inicial',
+                style: TextStyle(color: Colors.black),
+              ))
+        ],
       ),
       body: BlocBuilder<FetchProductsBloc, FetchProductsState>(
         bloc: store,
@@ -150,5 +162,16 @@ class _HomePageState extends ModularState<HomePage, FetchProductsBloc> {
       ),
     ).call();
     return result;
+  }
+
+  void initialCharge() async {
+    for (var item in dbFake) {
+      var product = ProductModelHive.fromMap(map: item);
+      await Modular.get<ProductController>()
+          .saveProductUsecase
+          .call(product: product);
+    }
+
+    store.fetchProducts();
   }
 }
