@@ -19,9 +19,7 @@ class LightTheme {
         bodyText1: TextStyle(color: Colors.black, fontSize: 18),
         bodyText2: TextStyle(color: Colors.black, fontSize: 14),
         subtitle1: TextStyle(
-            color: Color(0xFF2A8C68),
-            fontSize: 16,
-            fontWeight: FontWeight.w600),
+            color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
         subtitle2: TextStyle(
             color: Color(0xFF2A8C68),
             fontSize: 16,
