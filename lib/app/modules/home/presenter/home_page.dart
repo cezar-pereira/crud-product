@@ -1,6 +1,6 @@
 import 'package:crud_products/app/modules/home/domain/entities/product_entity.dart';
 import 'package:crud_products/app/modules/home/presenter/components/text_field_search_component.dart';
-import 'package:crud_products/app/modules/product/presenter/blocs/product_bloc.dart';
+import 'package:crud_products/app/modules/product/presenter/blocs/product_controller.dart';
 import 'package:crud_products/app/shared/components/build_show_dialog.dart';
 import 'package:crud_products/app/shared/components/dialog_confirm_component.dart';
 import 'package:crud_products/app/shared/components/snackbar_error_custom_component.dart';
@@ -80,7 +80,16 @@ class _HomePageState extends ModularState<HomePage, FetchProductsBloc> {
                           label: 'Remover',
                         ),
                         SlidableAction(
-                          onPressed: (_) {},
+                          onPressed: (_) {
+                            Modular.to
+                                .pushNamed('/product/',
+                                    arguments: state.data[index])
+                                .then((value) {
+                              if (value == true) {
+                                store.fetchProducts();
+                              }
+                            });
+                          },
                           backgroundColor: Colors.transparent,
                           foregroundColor: Colors.blue,
                           icon: Icons.edit,
@@ -102,13 +111,22 @@ class _HomePageState extends ModularState<HomePage, FetchProductsBloc> {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            Modular.to.pushNamed('/product/').then((value) {
+              if (value == true) {
+                store.fetchProducts();
+              }
+            });
+          }),
     );
   }
 
   _removeProduct({required ProductEntity product}) async {
     var response = await _dialogConfirmRemoveProduct(product: product);
     if (response) {
-      var result = await Modular.get<ProductBloc>()
+      var result = await Modular.get<ProductController>()
           .removeProductUsecase
           .call(product: product);
       result.fold((error) {

@@ -9,14 +9,14 @@ import 'package:crud_products/app/modules/product/presenter/product_page.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'blocs/product_bloc.dart';
+import 'blocs/product_controller.dart';
 
 class ProductModule extends Module {
   @override
   final List<Bind> binds = [
     /*** BLOCS ***/
     Bind.lazySingleton(
-        (i) => ProductBloc(
+        (i) => ProductController(
               removeProductUsecase: i.get<RemoveProductUsecaseInterface>(),
               saveProductUsecase: i.get<SaveProductUsecaseInterface>(),
               updateProductUsecase: i.get<UpdateProductUsecaseInterface>(),
@@ -49,6 +49,7 @@ class ProductModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(Modular.initialRoute, child: (_, args) => const ProductPage()),
+    ChildRoute(Modular.initialRoute,
+        child: (_, args) => ProductPage(product: args.data)),
   ];
 }
