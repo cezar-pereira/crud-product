@@ -37,18 +37,20 @@ class ProductModelHive extends ProductModel with HiveObjectMixin {
   ProductModelHive(
       {this.id = '',
       required this.name,
-      required this.style,
-      required this.codeColor,
-      required this.colorSlug,
-      required this.color,
-      required this.onSale,
+      this.style = '',
+      this.codeColor = '',
+      this.colorSlug = '',
+      this.color = '',
+      this.onSale = true,
       required this.regularPrice,
-      required this.actualPrice,
-      required this.discountPercentage,
-      required this.installments,
-      required this.image,
-      required this.sizes})
-      : super(
+      double? actualPrice,
+      double? discountPercentage,
+      this.installments = '',
+      this.image = '',
+      this.sizes = const []})
+      : actualPrice = actualPrice ?? regularPrice,
+        discountPercentage = discountPercentage ?? 0,
+        super(
           id: id,
           name: name,
           style: style,
@@ -90,5 +92,34 @@ class ProductModelHive extends ProductModel with HiveObjectMixin {
         image: map['image'],
         sizes: List<SizeProductModelHive>.from(map['sizes']
             .map((size) => SizeProductModelHive.fromMap(map: size))));
+  }
+
+  ProductModelHive copyWith(
+      {required ProductModelHive productHive,
+      String? name,
+      String? style,
+      String? codeColor,
+      String? colorSlug,
+      String? color,
+      bool? onSale,
+      double? regularPrice,
+      double? actualPrice,
+      double? discountPercentage,
+      String? installments,
+      String? image,
+      List<SizeProductModelHive>? sizes}) {
+    productHive.name = name ?? productHive.name;
+    productHive.style = style ?? productHive.style;
+    productHive.codeColor = codeColor ?? productHive.codeColor;
+    productHive.colorSlug = colorSlug ?? productHive.colorSlug;
+    productHive.color = color ?? productHive.color;
+    productHive.onSale = onSale ?? productHive.onSale;
+    productHive.regularPrice = regularPrice ?? productHive.regularPrice;
+    productHive.actualPrice = actualPrice ?? productHive.regularPrice;
+    productHive.discountPercentage = discountPercentage ?? 0;
+    productHive.installments = installments ?? productHive.installments;
+    productHive.image = image ?? productHive.image;
+    productHive.sizes = sizes ?? productHive.sizes;
+    return productHive;
   }
 }

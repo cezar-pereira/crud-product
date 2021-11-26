@@ -1,5 +1,3 @@
-// ignore_for_file: unused_field
-
 import 'package:crud_products/app/modules/home/domain/entities/size_product_entity.dart';
 
 class ProductEntity {
@@ -11,8 +9,8 @@ class ProductEntity {
   final String color;
   final bool onSale;
   final double regularPrice;
-  final double _actualPrice;
-  final double _discountPercentage;
+  final double actualPrice;
+  final double discountPercentage;
   final String installments;
   final String image;
   final List<SizeProductEntity> sizes;
@@ -30,12 +28,11 @@ class ProductEntity {
     this.installments = '',
     this.image = '',
     this.sizes = const [],
-  })  : _actualPrice = actualPrice ?? regularPrice,
-        _discountPercentage = discountPercentage ?? 0;
+  })  : actualPrice = actualPrice ?? regularPrice,
+        discountPercentage = discountPercentage ?? 0;
 
-  double get actualPrice => _actualPrice;
-
-  double get discountPercentage => ((_actualPrice * 100) / regularPrice) - 100;
+  double get discountPercentageCalc =>
+      ((actualPrice * 100) / regularPrice) - 100;
 
   @override
   String toString() => '$name $colorSlug $color';

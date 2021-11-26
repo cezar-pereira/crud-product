@@ -8,6 +8,6 @@ void main() {
     product = ProductEntity(name: 'name', regularPrice: 150, actualPrice: 50);
   });
   test('Should return -66.66666666666666 when call discountPercentage', () {
-    expect(product.discountPercentage, -66.66666666666666);
+    expect(product.discountPercentageCalc, -66.66666666666666);
   });
 }
