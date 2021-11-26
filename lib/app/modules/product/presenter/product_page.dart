@@ -1,4 +1,5 @@
 import 'package:crud_products/app/modules/home/domain/entities/product_entity.dart';
+import 'package:crud_products/app/modules/product/presenter/components/button_size_component.dart';
 import 'package:crud_products/app/modules/product/presenter/components/text_form_field_component.dart';
 import 'package:crud_products/app/shared/components/build_show_dialog.dart';
 
@@ -126,23 +127,14 @@ class _ProductPageState extends ModularState<ProductPage, ProductController> {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
-                        return InkWell(
+                        return ButtonSizeComponent(
+                          size: store.sizes[index],
                           onTap: () {
                             setState(() {
                               store.sizes[index].available =
                                   !store.sizes[index].available;
                             });
                           },
-                          child: Container(
-                            width: 70,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: store.sizes[index].available
-                                    ? Colors.green
-                                    : Colors.black12),
-                            child: Text(store.sizes[index].size),
-                          ),
                         );
                       },
                       separatorBuilder: (context, index) =>
