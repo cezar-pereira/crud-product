@@ -1,16 +1,5 @@
-# crud_products
+![Captura de Tela 2021-11-26 às 13 08 04](https://user-images.githubusercontent.com/48159342/143608270-17ee9104-6afc-4dd0-88b0-e81c3064fd7a.png)
+![Captura de Tela 2021-11-26 às 13 08 19](https://user-images.githubusercontent.com/48159342/143608160-72eff69e-938a-4152-a0c4-fd64449eaa8e.png)
+![Captura de Tela 2021-11-26 às 13 08 35](https://user-images.githubusercontent.com/48159342/143608280-673721ef-85b3-4ad4-8058-10c30ead267f.png)
+![Captura de Tela 2021-11-26 às 13 09 34](https://user-images.githubusercontent.com/48159342/143608278-099bed80-8aec-43b9-94c4-6f6b3784b6d1.png)
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
